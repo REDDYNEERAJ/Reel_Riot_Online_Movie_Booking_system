@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ movie.name }}</title>
+    <style>
+        .movie-poster {
+            width: 300px;
+            height: 400px;
+        }
+
+        .theatre-card {
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin: 10px 0;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>{{ movie.name }}</h2>
+    <img class="movie-poster" src="{{ movie.poster_img.url }}" alt="{{ movie.name }}">
+    <p>Rating: {{ movie.rating }}</p>
+    <p>Runtime: {{ movie.runtime_minutes }} minutes</p>
+
+    <h3>Theatres in selected location showing this movie</h3>
+    {% if theatre_shows %}
+    {% for theatre, shows in theatre_shows.items %}
+    <div class="theatre-card">
+        <strong>{{ theatre.name }}</strong><br>
+        <ul>
+            {% for show in shows %}
+            <li>
+                Show Time: {{ show.show_time }} |
+                Seats Available: {{ show.total_seats }}
+                <a href="{% url 'seat_selection' show.id %}">
+                    <button>Book Seats</button>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No theatres in this location are showing this movie.</p>
+    {% endif %}
+
+
+
+    <p><a href="{% url 'home' %}">Back to Home</a></p>
+</body>
+
+</html>

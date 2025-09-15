@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    <title>ReeLRiot - Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/logo1.png' %}" alt="ReeLRiot Logo">
+            <span>Reel Riot</span>
+        </div>
+        <div class="nav-links">
+            <span>Welcome, {{ user.username }}</span>
+            <a href="{% url 'profile' %}" class="btn">Profile</a>
+            <a href="{% url 'logout' %}" class="btn logout">Logout</a>
+        </div>
+    </div>
+
+    <!-- Location selection -->
+    <div class="location-section">
+        <h3>Select Location</h3>
+        <form method="get">
+            <select name="location">
+                <option value="">--Select Location--</option>
+                {% for loc in locations %}
+                <option value="{{ loc.id }}" {% if loc.selected %}selected{% endif %}>{{ loc.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn">Show Movies</button>
+        </form>
+    </div>
+
+    <!-- Movie cards -->
+    <div class="movie-section">
+        <h3>Movies in {{ selected_location.name }}</h3>
+        <div class="movies-grid">
+            {% for movie in movies %}
+            <div class="movie-card">
+                <a href="{% url 'movie_detail' movie.id %}?location={{ selected_location_id }}">
+                    <img src="{{ movie.poster_img.url }}" alt="{{ movie.name }}">
+                    <h4>{{ movie.name }}</h4>
+                    <p>⭐ Rating: {{ movie.rating }}</p>
+                </a>
+            </div>
+            {% empty %}
+            <p>No movies available in this location.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

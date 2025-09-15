@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ theatre.name }} - Seat Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .screen {
+            margin: 20px auto;
+            width: 80%;
+            height: 30px;
+            background: lightblue;
+            border-radius: 5px;
+            line-height: 30px;
+        }
+
+        .seat-map {
+            display: inline-block;
+            text-align: left;
+        }
+
+        .seat-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .row-label {
+            width: 20px;
+            text-align: right;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .seat {
+            width: 28px;
+            height: 28px;
+            margin: 2px;
+            border: 1px solid #28a745;
+            border-radius: 4px;
+            text-align: center;
+            line-height: 28px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .seat.booked {
+            background-color: #d9534f;
+            border-color: #d43f3a;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .seat.selected {
+            background-color: #28a745;
+            color: white;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        /* NEW: price section */
+        .price-summary {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+    <script>
+        const seatPrice = 250;
+
+        function toggleSeat(seatId) {
+            const seatDiv = document.getElementById(seatId);
+            const checkbox = document.getElementById(seatId + "_chk");
+
+            if (!seatDiv.classList.contains("booked")) {
+                seatDiv.classList.toggle("selected");
+                checkbox.checked = !checkbox.checked;
+                updatePrice(); // NEW: update price after toggle
+            }
+        }
+
+        function updatePrice() {
+            const selectedSeats = document.querySelectorAll(".seat.selected").length;
+            const subtotal = selectedSeats * seatPrice;
+            const tax = subtotal * 0.05;
+            const total = subtotal + tax;
+
+            document.getElementById("seat-count").innerText = selectedSeats;
+            document.getElementById("subtotal").innerText = subtotal.toFixed(2);
+            document.getElementById("tax").innerText = tax.toFixed(2);
+            document.getElementById("total").innerText = total.toFixed(2);
+        }
+    </script>
+</head>
+
+<body>
+    <h2>{{ theatre.name }} - Select Your Seats</h2>
+    <div class="screen">SCREEN THIS WAY</div>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="seat-map">
+            {% for row in seat_layout %}
+            <div class="seat-row">
+                <div class="row-label">{{ row.0|slice:":1" }}</div>
+                {% for seat in row %}
+                {% if seat in booked_seats %}
+                <div id="{{ seat }}" class="seat booked">{{ seat|slice:"1:" }}</div>
+                <input type="checkbox" id="{{ seat }}_chk" name="seats" value="{{ seat }}" style="display:none;"
+                    disabled>
+                {% else %}
+                <div id="{{ seat }}" class="seat" onclick="toggleSeat('{{ seat }}')">{{ seat|slice:"1:" }}</div>
+                <input type="checkbox" id="{{ seat }}_chk" name="seats" value="{{ seat }}" style="display:none;">
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- NEW: Price summary -->
+        <div class="price-summary">
+            <p>Seats Selected: <span id="seat-count">0</span></p>
+            <p>Subtotal (₹250 × seats): ₹<span id="subtotal">0.00</span></p>
+            <p>Tax (5%): ₹<span id="tax">0.00</span></p>
+            <p><strong>Total: ₹<span id="total">0.00</span></strong></p>
+        </div>
+
+        <button type="submit">Book Selected Seats</button>
+    </form>
+</body>
+
+</html>

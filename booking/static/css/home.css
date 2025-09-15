@@ -1,0 +1,104 @@
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #222;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    font-size: 80px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.navbar .logo img {
+    height: 150px;
+    margin-right: 10px;
+}
+
+.navbar .nav-links {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.navbar .btn {
+    background: #ff4500;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.navbar .btn:hover {
+    background: #e03e00;
+}
+
+.navbar .logout {
+    background: #444;
+}
+
+.navbar .logout:hover {
+    background: #666;
+}
+
+/* Location Section */
+.location-section {
+    margin: 20px;
+    text-align: center;
+}
+
+.location-section select,
+.location-section button {
+    padding: 8px;
+    margin: 5px;
+}
+
+/* Movies Section */
+.movie-section {
+    margin: 20px;
+}
+
+.movies-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.movie-card {
+    width: 180px;
+    margin: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: #fafafa;
+}
+
+.movie-card img {
+    width: 150px;
+    height: 220px;
+    border-radius: 6px;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.movie-card h4 {
+    margin: 10px 0 5px;
+    font-size: 16px;
+}
+
+.movie-card p {
+    margin: 0;
+    color: #555;
+}

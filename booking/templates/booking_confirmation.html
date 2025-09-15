@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Confirmation</title>
+    <style>
+        .confirmation-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f9f9f9;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .movie-poster {
+            width: 200px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .btn-home {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .btn-home:hover {
+            background: #0056b3;
+        }
+
+        .price-summary {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: left;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="confirmation-container">
+        <h1>Booking Confirmation</h1>
+
+        <!-- Movie Poster -->
+        <img src="{{ show.movie.poster_img.url }}" alt="{{ show.movie.name }}" class="movie-poster">
+
+        <!-- Movie Details -->
+        <h2>{{ show.movie.name }}</h2>
+        <p><strong>Theatre:</strong> {{ show.theatre.name }}</p>
+        <p><strong>Show Time:</strong> {{ show.show_time }}</p>
+
+        <!-- Seats -->
+        <p><strong>Your Seats:</strong></p>
+        <ul>
+            {% for seat in seats %}
+            <li>{{ seat }}</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Price Summary -->
+        <div class="price-summary">
+            <p>Seats Selected: {{ seats|length }}</p>
+            <p>Subtotal (₹250 × seats): ₹{{ subtotal }}</p>
+            <p>Tax (5%): ₹{{ tax }}</p>
+            <p><strong>Total: ₹{{ total }}</strong></p>
+        </div>
+
+        <!-- Back to Home Button -->
+        <a href="{% url 'home' %}" class="btn-home">Back to Home</a>
+    </div>
+</body>
+
+</html>

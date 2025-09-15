@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Profile - ReeLRiot</title>
+</head>
+
+<body>
+    <h2>{{ user.username }}'s Profile</h2>
+    <h3>Your Bookings</h3>
+    <ul>
+        {% for booking in bookings %}
+        <li>
+            {{ booking.show.movie.name }} - {{ booking.show.theatre.name }}
+            ({{ booking.show.show_time }})
+            Seats: {{ booking.seat_number }}
+        </li>
+        {% empty %}
+        <li>No bookings yet.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+
+</html>
