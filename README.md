@@ -1,6 +1,8 @@
 🎬 Online Movie Booking System
+
 Custom Logo
-<img width="1000" height="1000" alt="logo1" src="https://github.com/user-attachments/assets/d9716d05-7575-42ff-953d-f81879e329f5" />
+
+<img width="500" height="500" alt="logo1" src="https://github.com/user-attachments/assets/d9716d05-7575-42ff-953d-f81879e329f5" />
 
 
 This project is a Django-based Movie Ticket Booking System where users can browse movies, view details, select seats, and confirm their bookings.
