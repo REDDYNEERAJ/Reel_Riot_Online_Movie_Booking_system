@@ -86,6 +86,4 @@ Online payment gateway integration 💳
 
 User booking history 📜
 
-Email/SMS booking confirmation 📩
-
 Admin panel for managing shows 🎭
